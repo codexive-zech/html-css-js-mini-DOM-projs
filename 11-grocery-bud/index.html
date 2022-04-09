@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <!-- Normalized CSS -->
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <!-- Font Awesome CDN Link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <section class="section-center">
+      <!-- Form -->
+      <form class="grocery-form">
+        <div class="alert alert-danger">please enter a value</div>
+        <h3>Grocery Bud</h3>
+        <div class="form-row">
+          <input type="text" class="form-input" placeholder="e.g Milk" />
+          <button type="button" class="btn submit-btn text-small">
+            Submit
+          </button>
+        </div>
+      </form>
+      <!-- List of Groceries -->
+      <div class="grocery-container">
+        <div class="grocery-list">
+          <!-- Single Grocery List -->
+          <article class="grocery-item">
+            <span class="title">Flour</span>
+            <div class="btn-container">
+              <!-- edit -->
+              <button type="button" class="edit-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <!-- delete -->
+              <button class="delete-btn" type="button">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </article>
+          <!-- Single Grocery List -->
+          <article class="grocery-item">
+            <span class="title">Potatoes</span>
+            <div class="btn-container">
+              <!-- edit -->
+              <button type="button" class="edit-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <!-- delete -->
+              <button class="delete-btn" type="button">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </article>
+        </div>
+        <button class="clear-btn text-small" type="button">Clear Item</button>
+      </div>
+    </section>
+  </body>
+</html>
