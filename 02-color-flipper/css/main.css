@@ -14,7 +14,7 @@ body {
 }
 
 /* Fonts */
-@import url("https://fonts.googleapis.com/css?family=Inika:400|Spartan:400");
+@import url('https://fonts.googleapis.com/css?family=Inika:400|Spartan:400');
 
 html {
   font-size: 100%;
@@ -54,8 +54,8 @@ html {
   --red-dark: #842029;
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
-  --headingFont: "Spartan", sans-serif;
-  --bodyFont: "Inika", serif;
+  --headingFont: 'Spartan', sans-serif;
+  --bodyFont: 'Inika', serif;
   --smallText: 0.8rem;
 
   /* Rest var */
@@ -291,7 +291,7 @@ nav {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .nav-center h4 {
