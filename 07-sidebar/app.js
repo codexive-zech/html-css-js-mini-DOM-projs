@@ -1,17 +1,14 @@
-const getElement = (selector) => {
-  const el = document.querySelector(selector);
-  if (el) return el;
-  throw new Error(`Please check your classes: ${selector} does not exist`);
-};
+// Declaring and Defining actions and effects
+const navToggle = document.querySelector('.toggle');
+const sidebar = document.querySelector('.sidebar');
+const navClose = document.querySelector('.close');
 
-const sideToggle = getElement(".toggle");
-const sidebar = getElement(".sidebar");
-const sidebarClose = getElement(".close");
-
-sideToggle.addEventListener("click", function () {
-  sidebar.classList.toggle("show-sidebar");
+// Listening to a click on the toggle bar to show the sidebar
+navToggle.addEventListener('click', function () {
+  sidebar.classList.add('show-sidebar');
 });
 
-sidebarClose.addEventListener("click", () => {
-  sidebar.classList.toggle("show-sidebar");
+// Listening to a click on the close bar to remove the sidebar
+navClose.addEventListener('click', function () {
+  sidebar.classList.remove('show-sidebar');
 });
