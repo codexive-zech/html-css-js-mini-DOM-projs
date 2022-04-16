@@ -10,7 +10,7 @@ body {
 }
 
 /* Fonts */
-@import url("https://fonts.googleapis.com/css?family=Inika:400|Spartan:400");
+@import url('https://fonts.googleapis.com/css?family=Inika:400|Spartan:400');
 
 html {
   font-size: 100%;
@@ -50,8 +50,8 @@ html {
   --red-dark: #842029;
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
-  --headingFont: "Spartan", sans-serif;
-  --bodyFont: "Inika", serif;
+  --headingFont: 'Spartan', sans-serif;
+  --bodyFont: 'Inika', serif;
   --smallText: 0.8rem;
 
   /* Rest var */
@@ -281,7 +281,7 @@ ul {
 }
 
 .questions .title {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--gold);
 }
 
