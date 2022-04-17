@@ -97,6 +97,18 @@ const filterBtn = document.querySelectorAll('.filter-btn');
 window.addEventListener('DOMContentLoaded', function () {
   // Calling the function that is dynamically displaying the content
   displayMenuItems(menu);
+
+  const uniqueCategory = menu.reduce(
+    function (value, items) {
+      // checking to see if the value i.e array does not include the category property of the array
+      if (!value.includes(items.category)) {
+        // Add that category to the array list
+        value.push(items.category);
+      }
+      return value;
+    },
+    ['all']
+  );
 });
 
 // Loop through each filter buttons
