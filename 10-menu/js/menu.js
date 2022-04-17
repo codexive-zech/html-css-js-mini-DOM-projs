@@ -74,7 +74,15 @@ const menu = [
   {
     id: 10,
     title: 'bison steak',
-    category: 'dinner',
+    category: 'lunch',
+    price: 22.99,
+    img: './images/food.jpg',
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
+  {
+    id: 11,
+    title: 'bison steak',
+    category: 'shakes',
     price: 22.99,
     img: './images/food.jpg',
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
@@ -83,11 +91,35 @@ const menu = [
 
 // Declaring and Defining actions and effects
 const sectionCenter = document.querySelector('.section-center');
+const filterBtn = document.querySelectorAll('.filter-btn');
 
 // event should load the values provided immediately
 window.addEventListener('DOMContentLoaded', function () {
   // Calling the function that is dynamically displaying the content
   displayMenuItems(menu);
+});
+
+// Loop through each filter buttons
+filterBtn.forEach(function (btn) {
+  btn.addEventListener('click', function (e) {
+    // targeting the dataset of the HTML so as to differentiate
+    const category = e.currentTarget.dataset.id;
+    // using the filter Array method to select and filter a particular menu
+    const filterMenuItem = menu.filter(function (menuItems) {
+      // checking to see if the menu category and the HTML dataset id are same
+      if (menuItems.category === category) {
+        return menuItems;
+      }
+    });
+    // Checking to see if the HTML dataset id is same as 'all'
+    if (category === 'all') {
+      // render all the menu array
+      displayMenuItems(menu);
+    } else {
+      // render the filtered menu array
+      displayMenuItems(filterMenuItem);
+    }
+  });
 });
 
 function displayMenuItems(menuItems) {
