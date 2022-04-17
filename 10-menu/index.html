@@ -27,10 +27,17 @@
       </div>
       <!-- Filters Button -->
       <div class="btn-container">
-        <button type="button" class="btn filter-btn">all</button>
-        <button type="button" class="btn filter-btn">breakfast</button>
-        <button type="button" class="btn filter-btn">launch</button>
-        <button type="button" class="btn filter-btn">shake</button>
+        <!-- Added dataset so as to get the current click target for JS -->
+        <button type="button" class="btn filter-btn" data-id="all">all</button>
+        <button type="button" class="btn filter-btn" data-id="breakfast">
+          breakfast
+        </button>
+        <button type="button" class="btn filter-btn" data-id="lunch">
+          launch
+        </button>
+        <button type="button" class="btn filter-btn" data-id="shakes">
+          shake
+        </button>
       </div>
       <!-- Menu List -->
       <div class="section-center">
