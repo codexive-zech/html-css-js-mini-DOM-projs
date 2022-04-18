@@ -10,7 +10,7 @@ const menu = [
   {
     id: 2,
     title: 'diner double',
-    category: 'lunch',
+    category: 'dinner',
     price: 13.99,
     img: './images/item-2.jpg',
     desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
@@ -91,36 +91,63 @@ const menu = [
 
 // Declaring and Defining actions and effects
 const sectionCenter = document.querySelector('.section-center');
-const filterBtn = document.querySelectorAll('.filter-btn');
+const btnContainer = document.querySelector('.btn-container');
 
 // event should load the values provided immediately
 window.addEventListener('DOMContentLoaded', function () {
   // Calling the function that is dynamically displaying the content
   displayMenuItems(menu);
+  displayMenuCategory();
 });
 
-// Loop through each filter buttons
-filterBtn.forEach(function (btn) {
-  btn.addEventListener('click', function (e) {
-    // targeting the dataset of the HTML so as to differentiate
-    const category = e.currentTarget.dataset.id;
-    // using the filter Array method to select and filter a particular menu
-    const filterMenuItem = menu.filter(function (menuItems) {
-      // checking to see if the menu category and the HTML dataset id are same
-      if (menuItems.category === category) {
-        return menuItems;
+function displayMenuCategory() {
+  const uniqueCategory = menu.reduce(
+    function (value, items) {
+      // checking to see if the value i.e array does not include the category property of the array
+      if (!value.includes(items.category)) {
+        // Add that category to the array list
+        value.push(items.category);
+      }
+      return value;
+    },
+    ['all']
+  );
+
+  // Looping through all category in the menu array
+  const categoriesBtn = uniqueCategory
+    .map(function (category) {
+      // dynamically rendering the Category section in the HTML
+      return `<button type="button" class="btn filter-btn" data-id=${category}>
+      ${category}
+      </button>`;
+    })
+    .join('');
+  // Adding the dynamically rendered HTML into the HTML webpage
+  btnContainer.innerHTML = categoriesBtn;
+  const filterBtn = document.querySelectorAll('.filter-btn');
+  // Loop through each filter buttons
+  filterBtn.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      // targeting the dataset of the HTML so as to differentiate
+      const category = e.currentTarget.dataset.id;
+      // using the filter Array method to select and filter a particular menu
+      const filterMenuItem = menu.filter(function (menuItems) {
+        // checking to see if the menu category and the HTML dataset id are same
+        if (menuItems.category === category) {
+          return menuItems;
+        }
+      });
+      // Checking to see if the HTML dataset id is same as 'all'
+      if (category === 'all') {
+        // render all the menu array
+        displayMenuItems(menu);
+      } else {
+        // render the filtered menu array
+        displayMenuItems(filterMenuItem);
       }
     });
-    // Checking to see if the HTML dataset id is same as 'all'
-    if (category === 'all') {
-      // render all the menu array
-      displayMenuItems(menu);
-    } else {
-      // render the filtered menu array
-      displayMenuItems(filterMenuItem);
-    }
   });
-});
+}
 
 function displayMenuItems(menuItems) {
   // Loop through the menu array to be able to assign value for each child
