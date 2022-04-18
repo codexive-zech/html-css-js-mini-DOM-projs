@@ -22,3 +22,31 @@ navToggle.addEventListener('click', function () {
     linksContainer.style.height = 0;
   }
 });
+
+const navbar = document.querySelector('#nav');
+const backTopLink = document.querySelector('.top-link');
+
+// Listening for a scroll event on the window
+window.addEventListener('scroll', function () {
+  // Looking for the vertical height scrolled to in the document
+  const scrollHeight = window.pageYOffset;
+  // Getting the Height of the navbar
+  const navbarHeight = navbar.getBoundingClientRect().height;
+  // checking if the height from the vertical scroll is bigger than the navbar height
+  if (scrollHeight > navbarHeight) {
+    // Adding the class for fixed top navbar
+    navbar.classList.add('fixed-nav');
+  } else {
+    // removing the class for fixed top navbar
+    navbar.classList.remove('fixed-nav');
+  }
+
+  // Checking to see if the vertical scroll height is bigger than 300
+  if (scrollHeight > 300) {
+    // Adding the class for back to top link
+    backTopLink.classList.add('show-link');
+  } else {
+    // removing the class for back to top link
+    backTopLink.classList.remove('show-link');
+  }
+});
