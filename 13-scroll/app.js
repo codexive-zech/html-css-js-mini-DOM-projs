@@ -50,3 +50,24 @@ window.addEventListener('scroll', function () {
     backTopLink.classList.remove('show-link');
   }
 });
+
+const scrollLinks = document.querySelectorAll('.scroll-link');
+// Looping through the links
+scrollLinks.forEach(function (link) {
+  // Adding an event to the link each
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    // Getting a particular session of the clicked link
+    const specificId = e.currentTarget.getAttribute('href').slice(1);
+    const element = document.getElementById(specificId);
+    // Getting the position of each section
+    let position = element.offsetTop;
+    // Scroll to each position in the window
+    window.scrollTo({
+      left: 0,
+      top: position,
+    });
+    // Collapsing the height of the nav bar when a link is clicked on smaller device
+    linksContainer.style.height = 0;
+  });
+});
