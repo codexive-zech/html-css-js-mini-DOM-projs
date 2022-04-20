@@ -29,7 +29,7 @@ const weekdays = [
 const giveaway = document.querySelector('.giveaway');
 
 // displaying the future date to end countdown
-const futureDate = new Date(2022, 9, 17, 23, 30, 00);
+const futureDate = new Date(2022, 6, 17, 17, 30, 00);
 
 // Future date extraction begin
 // getting the exact Year the countdown end
