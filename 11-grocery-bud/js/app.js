@@ -4,7 +4,7 @@ const alert = document.querySelector('.alert');
 const groceryInput = document.getElementById('grocery');
 const submitBtn = document.querySelector('.submit-btn');
 const groceryContainer = document.querySelector('.grocery-container');
-const groceryItem = document.querySelector('.grocery-item');
+const groceryList = document.querySelector('.grocery-list');
 const editBtn = document.querySelector('.edit-btn');
 // Edit Option
 let editElement;
@@ -26,8 +26,39 @@ function addGroceryItem(e) {
   const id = new Date().getTime().toString();
   //   Checking to see if as long an the groceryValue(groceryInput) is not empty and editFlag (mode) is false
   if (groceryValue !== '' && editFlag === false) {
-    // Checking to see if as long an the groceryValue(groceryInput) is not empty and editFlag (mode) is true
+    // creat a new html element tag of article
+    const articleElement = document.createElement('article');
+    // Add it class to it
+    articleElement.classList.add('grocery-item');
+    // creating the data-id attribute
+    const attr = document.createAttribute('data-id');
+    // Add the value of the id as the attribute value
+    attr.value = id;
+    // Set the attribute into the article element
+    articleElement.setAttributeNode(attr);
+    // Dynamically adding the article HTML
+    articleElement.innerHTML = `<p class="title">${groceryValue}</p>
+            <div class="btn-container">
+              <!-- edit btn -->
+              <button type="button" class="edit-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <!-- delete btn -->
+              <button type="button" class="delete-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>`;
+    // Merging and appending dynamically created article element it parent Grocery List
+    groceryList.appendChild(articleElement);
+    // Adding the success alert
     displayAlert('Grocery Item Added Successfully', 'success');
+    // Adding the class for displaying the created article element section by it's parent grocery container
+    groceryContainer.classList.add('show-container');
+    // Add To Local Storage
+    addToLocalStorage(id, groceryValue);
+    // Set Back To Default
+    backToDefault();
+    // Checking to see if as long an the groceryValue(groceryInput) is not empty and editFlag (mode) is true
   } else if (groceryValue !== '' && editFlag === true) {
     console.log('Editing Item');
   } else {
@@ -54,4 +85,14 @@ function displayAlert(text, bgAction) {
     //   setting the specific duration before it goes out
     2000
   );
+
+  // Calling the Set Back To Default function
+  function backToDefault() {
+    console.log('set back to default');
+  }
+
+  // **********Local Storage **********
+  function addToLocalStorage(id, groceryValue) {
+    console.log('Added to Local storage');
+  }
 }
