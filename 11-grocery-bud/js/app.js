@@ -6,6 +6,7 @@ const submitBtn = document.querySelector('.submit-btn');
 const groceryContainer = document.querySelector('.grocery-container');
 const groceryList = document.querySelector('.grocery-list');
 const editBtn = document.querySelector('.edit-btn');
+const clearBtn = document.querySelector('.clear-btn');
 // Edit Option
 let editElement;
 // used when you want to edit
@@ -15,7 +16,11 @@ let editID = '';
 
 // Implementing the Submit form Event
 groceryForm.addEventListener('submit', addGroceryItem);
-// Functions
+
+// implementing the click event for the clear button
+clearBtn.addEventListener('click', clearGroceryItem);
+
+// ********** Functions *******************
 // function for Adding item to the grocery list
 function addGroceryItem(e) {
   // Preventing form default behavior of submitting to the server
@@ -85,14 +90,40 @@ function displayAlert(text, bgAction) {
     //   setting the specific duration before it goes out
     2000
   );
+}
 
-  // Calling the Set Back To Default function
-  function backToDefault() {
-    console.log('set back to default');
-  }
+// Calling the Set Back To Default function
+function backToDefault() {
+  // Remove the inputted value by user
+  groceryInput.value = '';
+  // work all 3 in later part
+  editFlag = false;
+  editID = '';
+  submitBtn.textContent = 'Submit';
+}
 
-  // **********Local Storage **********
-  function addToLocalStorage(id, groceryValue) {
-    console.log('Added to Local storage');
+function clearGroceryItem() {
+  // Selecting each item
+  const groceryItems = document.querySelectorAll('.grocery-item');
+  // Checking to make sure that the length of the grocery item is greater than zero (0)
+  if (groceryItems.length > 0) {
+    // loop through the grocery list when it's bigger than zero
+    groceryItems.forEach(function (item) {
+      // remove each grocery item from it parent grocery list
+      groceryList.removeChild(item);
+    });
+    // remove the entire list container which include the the items and the clear button
+    groceryContainer.classList.remove('show-container');
+    // dynamically display the alert
+    displayAlert('Grocery Cleared Successfully', 'success');
+    // set back to default
+    backToDefault();
+    // Local storage part
+    // localStorage.removeItem('grocery-list');
   }
+}
+
+// **********Local Storage **********
+function addToLocalStorage(id, groceryValue) {
+  console.log('Added to Local storage');
 }
