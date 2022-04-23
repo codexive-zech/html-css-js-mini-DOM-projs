@@ -21,7 +21,7 @@ groceryForm.addEventListener('submit', addGroceryItem);
 clearBtn.addEventListener('click', clearGroceryItem);
 
 // ********** Functions *******************
-// function for Adding item to the grocery list
+// *** function for Adding item to the grocery list ***
 function addGroceryItem(e) {
   // Preventing form default behavior of submitting to the server
   e.preventDefault();
@@ -80,7 +80,7 @@ function addGroceryItem(e) {
   }
 }
 
-// the display Function for alert
+// *** the display Function for alert ***
 function displayAlert(text, bgAction) {
   // dynamically displaying text in the HTML
   alert.textContent = text;
@@ -100,7 +100,7 @@ function displayAlert(text, bgAction) {
   );
 }
 
-// Calling the Set Back To Default function
+//*** Calling the Set Back To Default function ***
 function backToDefault() {
   // Remove the inputted value by user
   groceryInput.value = '';
@@ -111,7 +111,7 @@ function backToDefault() {
   submitBtn.textContent = 'Submit';
 }
 
-// Function to clear the entire Grocery Item
+//*** Function to clear the entire Grocery Item ***
 function clearGroceryItem() {
   // Selecting each item
   const groceryItems = document.querySelectorAll('.grocery-item');
@@ -133,12 +133,28 @@ function clearGroceryItem() {
   }
 }
 
-// function to delete each grocery item
-function deleteGrocery() {
-  console.log('Grocery Deleted');
+//*** function to delete each grocery item ***
+function deleteGrocery(e) {
+  // getting the parent-element(btn-container, grocery-item)*2 of the element clicked
+  const groceryItem = e.currentTarget.parentElement.parentElement;
+  // getting the id value of each element (item) dataset which was dynamically added to HTML
+  const id = e.dataset.id;
+  // removing the exact gotten child grocery-item form it's parent grocery-list
+  groceryList.removeChild(groceryItem);
+  // checking to see if the grocery-list children is exactly or more than zero (0)
+  if (groceryList.children.length === 0) {
+    // remove the entire container space for all item including clear button
+    groceryContainer.classList.remove('show-container');
+  }
+  // set up an alert on every delete action
+  displayAlert('Grocery Successfully Removed', 'success');
+  // reset all back to default
+  backToDefault();
+  // remove from Local storage
+  removeFromLocalStorage(id);
 }
 
-// function to edit each grocery item
+//*** function to edit each grocery item ***
 function editGrocery() {
   console.log('Grocery Edited');
 }
@@ -147,3 +163,5 @@ function editGrocery() {
 function addToLocalStorage(id, groceryValue) {
   console.log('Added to Local storage');
 }
+
+function removeFromLocalStorage(id) {}
