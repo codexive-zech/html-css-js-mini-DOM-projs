@@ -53,6 +53,14 @@ function addGroceryItem(e) {
                 <i class="fas fa-trash"></i>
               </button>
             </div>`;
+    //Dynamically added HTML can only be targeted when we have access to them.
+    const deleteBtn = articleElement.querySelector('.delete-btn');
+    const editBtn = articleElement.querySelector('.edit-btn');
+
+    // Adding a click event to delete grocery now that we can access it
+    deleteBtn.addEventListener('click', deleteGrocery);
+    // Adding a click event to edit grocery now that we can access it
+    editBtn.addEventListener('click', editGrocery);
     // Merging and appending dynamically created article element it parent Grocery List
     groceryList.appendChild(articleElement);
     // Adding the success alert
@@ -96,12 +104,14 @@ function displayAlert(text, bgAction) {
 function backToDefault() {
   // Remove the inputted value by user
   groceryInput.value = '';
-  // work all 3 in later part
+  // work all 2 in later part
   editFlag = false;
   editID = '';
+  // Change back the text of the submit button
   submitBtn.textContent = 'Submit';
 }
 
+// Function to clear the entire Grocery Item
 function clearGroceryItem() {
   // Selecting each item
   const groceryItems = document.querySelectorAll('.grocery-item');
@@ -121,6 +131,16 @@ function clearGroceryItem() {
     // Local storage part
     // localStorage.removeItem('grocery-list');
   }
+}
+
+// function to delete each grocery item
+function deleteGrocery() {
+  console.log('Grocery Deleted');
+}
+
+// function to edit each grocery item
+function editGrocery() {
+  console.log('Grocery Edited');
 }
 
 // **********Local Storage **********
