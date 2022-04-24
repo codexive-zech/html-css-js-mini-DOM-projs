@@ -73,7 +73,14 @@ function addGroceryItem(e) {
     backToDefault();
     // Checking to see if as long an the groceryValue(groceryInput) is not empty and editFlag (mode) is true
   } else if (groceryValue !== '' && editFlag === true) {
-    console.log('Editing Item');
+    // inserting the value of edit Element form the HTML to become the new value
+    editElement.innerHTML = groceryValue;
+    //  invoking the display Alert fun when the submit event takes place
+    displayAlert('Grocery Value Edited', 'success');
+    // Editing the value in the Local Storage as well
+    editLocalStorage(editID, groceryValue);
+    // Setting back every thing in the edit func to default
+    backToDefault();
   } else {
     //  invoking the display Alert fun when the submit event takes place
     displayAlert('Empty', 'danger');
@@ -125,7 +132,7 @@ function clearGroceryItem() {
     // remove the entire list container which include the the items and the clear button
     groceryContainer.classList.remove('show-container');
     // dynamically display the alert
-    displayAlert('Grocery Cleared Successfully', 'success');
+    displayAlert('Grocery List has been Cleared', 'danger');
     // set back to default
     backToDefault();
     // Local storage part
@@ -138,7 +145,7 @@ function deleteGrocery(e) {
   // getting the parent-element(btn-container, grocery-item)*2 of the element clicked
   const groceryItem = e.currentTarget.parentElement.parentElement;
   // getting the id value of each element (item) dataset which was dynamically added to HTML
-  const id = e.dataset.id;
+  const id = groceryItem.dataset.id;
   // removing the exact gotten child grocery-item form it's parent grocery-list
   groceryList.removeChild(groceryItem);
   // checking to see if the grocery-list children is exactly or more than zero (0)
@@ -147,16 +154,25 @@ function deleteGrocery(e) {
     groceryContainer.classList.remove('show-container');
   }
   // set up an alert on every delete action
-  displayAlert('Grocery Successfully Removed', 'success');
+  displayAlert('Grocery Item Removed', 'danger');
   // reset all back to default
   backToDefault();
   // remove from Local storage
-  removeFromLocalStorage(id);
+  // removeFromLocalStorage(id);
 }
 
 //*** function to edit each grocery item ***
-function editGrocery() {
-  console.log('Grocery Edited');
+function editGrocery(e) {
+  // getting the parent-element(btn-container, grocery-item)*2 of the element clicked
+  const groceryItem = e.currentTarget.parentElement.parentElement;
+  // Picking the previous sibling element that is beside the parent of the clicked button
+  editElement = e.currentTarget.parentElement.previousElementSibling;
+  // inputting the value of the picked parent sibling into the HTML(assigning it into the form)
+  groceryInput.value = editElement.innerHTML;
+  // change the edit hand to True
+  editFlag = true;
+  // Change the button text
+  submitBtn.textContent = 'Edit';
 }
 
 // **********Local Storage **********
@@ -165,3 +181,5 @@ function addToLocalStorage(id, groceryValue) {
 }
 
 function removeFromLocalStorage(id) {}
+
+function editLocalStorage(editID, groceryValue) {}
