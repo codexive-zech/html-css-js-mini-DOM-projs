@@ -177,7 +177,16 @@ function editGrocery(e) {
 
 // **********Local Storage **********
 function addToLocalStorage(id, groceryValue) {
-  console.log('Added to Local storage');
+  // setting the key value pair into an object
+  const grocery = { id, groceryValue };
+  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
+  let item = localStorage.getItem('list')
+    ? JSON.parse(localStorage.getItem('list'))
+    : [];
+  // Add the grocery {key, value} pair to the array Object in the local storage
+  item.push(grocery);
+  // setting the grocery items into the local storage as string
+  localStorage.setItem('list', JSON.stringify(item));
 }
 
 function removeFromLocalStorage(id) {}
