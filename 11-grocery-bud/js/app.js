@@ -20,6 +20,9 @@ groceryForm.addEventListener('submit', addGroceryItem);
 // implementing the click event for the clear button
 clearBtn.addEventListener('click', clearGroceryItem);
 
+// implementing the loading of grocery list immediately the window loads
+window.addEventListener('DOMContentLoaded', setUpGroceryList);
+
 // ********** Functions *******************
 // *** function for Adding item to the grocery list ***
 function addGroceryItem(e) {
@@ -31,38 +34,8 @@ function addGroceryItem(e) {
   const id = new Date().getTime().toString();
   //   Checking to see if as long an the value(groceryInput) is not empty and editFlag (mode) is false
   if (value !== '' && editFlag === false) {
-    // creat a new html element tag of article
-    const articleElement = document.createElement('article');
-    // Add it class to it
-    articleElement.classList.add('grocery-item');
-    // creating the data-id attribute
-    const attr = document.createAttribute('data-id');
-    // Add the value of the id as the attribute value
-    attr.value = id;
-    // Set the attribute into the article element
-    articleElement.setAttributeNode(attr);
-    // Dynamically adding the article HTML
-    articleElement.innerHTML = `<p class="title">${value}</p>
-            <div class="btn-container">
-              <!-- edit btn -->
-              <button type="button" class="edit-btn">
-                <i class="fas fa-edit"></i>
-              </button>
-              <!-- delete btn -->
-              <button type="button" class="delete-btn">
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>`;
-    //Dynamically added HTML can only be targeted when we have access to them.
-    const deleteBtn = articleElement.querySelector('.delete-btn');
-    const editBtn = articleElement.querySelector('.edit-btn');
-
-    // Adding a click event to delete grocery now that we can access it
-    deleteBtn.addEventListener('click', deleteGrocery);
-    // Adding a click event to edit grocery now that we can access it
-    editBtn.addEventListener('click', editGrocery);
-    // Merging and appending dynamically created article element it parent Grocery List
-    groceryList.appendChild(articleElement);
+    // Adding the Create Grocery Function
+    createGrocery(id, value);
     // Adding the success alert
     displayAlert('Grocery Item Added Successfully', 'success');
     // Adding the class for displaying the created article element section by it's parent grocery container
@@ -176,6 +149,42 @@ function editGrocery(e) {
   editID = groceryItem.dataset.id;
 }
 
+// function for creating grocery
+function createGrocery(id, value) {
+  // creat a new html element tag of article
+  const articleElement = document.createElement('article');
+  // Add it class to it
+  articleElement.classList.add('grocery-item');
+  // creating the data-id attribute
+  const attr = document.createAttribute('data-id');
+  // Add the value of the id as the attribute value
+  attr.value = id;
+  // Set the attribute into the article element
+  articleElement.setAttributeNode(attr);
+  // Dynamically adding the article HTML
+  articleElement.innerHTML = `<p class="title">${value}</p>
+            <div class="btn-container">
+              <!-- edit btn -->
+              <button type="button" class="edit-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+              <!-- delete btn -->
+              <button type="button" class="delete-btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>`;
+  //Dynamically added HTML can only be targeted when we have access to them.
+  const deleteBtn = articleElement.querySelector('.delete-btn');
+  const editBtn = articleElement.querySelector('.edit-btn');
+
+  // Adding a click event to delete grocery now that we can access it
+  deleteBtn.addEventListener('click', deleteGrocery);
+  // Adding a click event to edit grocery now that we can access it
+  editBtn.addEventListener('click', editGrocery);
+  // Merging and appending dynamically created article element it parent Grocery List
+  groceryList.appendChild(articleElement);
+}
+
 // **********Local Storage **********
 function addToLocalStorage(id, value) {
   // setting the key value pair into an object
@@ -225,4 +234,20 @@ function getFromLocalStorage() {
   return localStorage.getItem('list')
     ? JSON.parse(localStorage.getItem('list'))
     : [];
+}
+
+// ********* Setup
+function setUpGroceryList() {
+  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
+  let items = getFromLocalStorage();
+  // checking to see if the length is bigger than 0
+  if (items.length > 0) {
+    // loop through all the items
+    items.forEach(function (item) {
+      // invoking the create Grocery func
+      createGrocery(item.id, item.value);
+    });
+    // added the show container class for the grocery container
+    groceryContainer.classList.add('.show-container');
+  }
 }
