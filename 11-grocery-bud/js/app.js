@@ -26,11 +26,11 @@ function addGroceryItem(e) {
   // Preventing form default behavior of submitting to the server
   e.preventDefault();
   // getting the value of the input in the form
-  const groceryValue = groceryInput.value;
+  const value = groceryInput.value;
   //   getting Id of each item via the time it was added
   const id = new Date().getTime().toString();
-  //   Checking to see if as long an the groceryValue(groceryInput) is not empty and editFlag (mode) is false
-  if (groceryValue !== '' && editFlag === false) {
+  //   Checking to see if as long an the value(groceryInput) is not empty and editFlag (mode) is false
+  if (value !== '' && editFlag === false) {
     // creat a new html element tag of article
     const articleElement = document.createElement('article');
     // Add it class to it
@@ -42,7 +42,7 @@ function addGroceryItem(e) {
     // Set the attribute into the article element
     articleElement.setAttributeNode(attr);
     // Dynamically adding the article HTML
-    articleElement.innerHTML = `<p class="title">${groceryValue}</p>
+    articleElement.innerHTML = `<p class="title">${value}</p>
             <div class="btn-container">
               <!-- edit btn -->
               <button type="button" class="edit-btn">
@@ -68,17 +68,17 @@ function addGroceryItem(e) {
     // Adding the class for displaying the created article element section by it's parent grocery container
     groceryContainer.classList.add('show-container');
     // Add To Local Storage
-    addToLocalStorage(id, groceryValue);
+    addToLocalStorage(id, value);
     // Set Back To Default
     backToDefault();
-    // Checking to see if as long an the groceryValue(groceryInput) is not empty and editFlag (mode) is true
-  } else if (groceryValue !== '' && editFlag === true) {
+    // Checking to see if as long an the value(groceryInput) is not empty and editFlag (mode) is true
+  } else if (value !== '' && editFlag === true) {
     // inserting the value of edit Element form the HTML to become the new value
-    editElement.innerHTML = groceryValue;
+    editElement.innerHTML = value;
     //  invoking the display Alert fun when the submit event takes place
     displayAlert('Grocery Value Edited', 'success');
     // Editing the value in the Local Storage as well
-    editLocalStorage(editID, groceryValue);
+    editLocalStorage(editID, value);
     // Setting back every thing in the edit func to default
     backToDefault();
   } else {
@@ -135,8 +135,8 @@ function clearGroceryItem() {
     displayAlert('Grocery List has been Cleared', 'danger');
     // set back to default
     backToDefault();
-    // Local storage part
-    // localStorage.removeItem('grocery-list');
+    // remove all the items from the local storage
+    localStorage.removeItem('list');
   }
 }
 
@@ -173,12 +173,13 @@ function editGrocery(e) {
   editFlag = true;
   // Change the button text
   submitBtn.textContent = 'Edit';
+  editID = groceryItem.dataset.id;
 }
 
 // **********Local Storage **********
-function addToLocalStorage(id, groceryValue) {
+function addToLocalStorage(id, value) {
   // setting the key value pair into an object
-  const grocery = { id, groceryValue };
+  const grocery = { id, value };
   // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array, invoking the function
   let item = getFromLocalStorage();
   // Add the grocery {key, value} pair to the array Object in the local storage
@@ -202,7 +203,22 @@ function removeFromLocalStorage(id) {
   localStorage.setItem('list', JSON.stringify(items));
 }
 
-function editLocalStorage(editID, groceryValue) {}
+function editLocalStorage(id, value) {
+  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
+  let items = getFromLocalStorage();
+  // looping over all the values in the local storage using map
+  items = items.map(function (item) {
+    // checking to see if the id clicked is same as the id in the local storage
+    if (item.id === id) {
+      // changing the value of the item in the local storage
+      item.value = value;
+    }
+    // return back all the items
+    return item;
+  });
+  // setting the grocery items into the local storage as string
+  localStorage.setItem('list', JSON.stringify(items));
+}
 
 function getFromLocalStorage() {
   // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
