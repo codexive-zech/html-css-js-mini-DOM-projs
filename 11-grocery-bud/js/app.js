@@ -158,7 +158,7 @@ function deleteGrocery(e) {
   // reset all back to default
   backToDefault();
   // remove from Local storage
-  // removeFromLocalStorage(id);
+  removeFromLocalStorage(id);
 }
 
 //*** function to edit each grocery item ***
@@ -179,16 +179,34 @@ function editGrocery(e) {
 function addToLocalStorage(id, groceryValue) {
   // setting the key value pair into an object
   const grocery = { id, groceryValue };
-  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
-  let item = localStorage.getItem('list')
-    ? JSON.parse(localStorage.getItem('list'))
-    : [];
+  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array, invoking the function
+  let item = getFromLocalStorage();
   // Add the grocery {key, value} pair to the array Object in the local storage
   item.push(grocery);
   // setting the grocery items into the local storage as string
   localStorage.setItem('list', JSON.stringify(item));
 }
 
-function removeFromLocalStorage(id) {}
+function removeFromLocalStorage(id) {
+  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
+  let items = getFromLocalStorage();
+  // looping over all the values in the local storage
+  items = items.filter(function (item) {
+    // checking to make sure that an item id is not the same as the clicked item id, then return that item back to the items array object
+    if (item.id !== id) {
+      // return only items that delete-btn were not clicked back to the local storage
+      return item;
+    }
+  });
+  // setting the grocery items into the local storage as string
+  localStorage.setItem('list', JSON.stringify(items));
+}
 
 function editLocalStorage(editID, groceryValue) {}
+
+function getFromLocalStorage() {
+  // getting item from local storage, checking to see if the items key is (list) in the local storage else make it an empty array
+  return localStorage.getItem('list')
+    ? JSON.parse(localStorage.getItem('list'))
+    : [];
+}
